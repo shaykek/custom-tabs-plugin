@@ -27,3 +27,38 @@ function custom_tabs_plugin_enqueue_scripts() {
 	wp_enqueue_script( 'custom-tabs-plugin-script', plugin_dir_url( __FILE__ ) . 'assets/scripts.js', array( 'jquery' ), CUSTOM_TABS_PLUGIN_VERSION, true );
 }
 add_action( 'wp_enqueue_scripts', 'custom_tabs_plugin_enqueue_scripts' );
+
+
+add_action( 'init', 'custom_tabs_plugin_import_acf_fields' );
+
+// Function to import ACF fields from JSON
+function custom_tabs_plugin_import_acf_fields() {
+
+	if ( function_exists( 'acf_add_options_page' ) ) {
+		acf_add_options_page(
+			array(
+				'page_title' => __( 'Custom Tabs Plugin' ),
+				'menu_title' => __( 'Custom Tabs Plugin' ),
+				'menu_slug'  => 'custom-tabs-settings',
+				'capability' => 'edit_posts',
+				'redirect'   => false,
+			)
+		);
+	}
+
+	$json_file = plugin_dir_path( __FILE__ ) . 'acf-json/acf-fields.json';
+
+	if ( file_exists( $json_file ) ) {
+		$json_data    = file_get_contents( $json_file );
+		$field_groups = json_decode( $json_data, true );
+
+		if ( $field_groups ) {
+			foreach ( $field_groups as $field_group ) {
+				if ( function_exists( 'acf_add_local_field_group' ) ) {
+					acf_add_local_field_group( $field_group );
+				}
+			}
+		}
+	}
+}
+register_activation_hook( __FILE__, 'custom_tabs_plugin_import_acf_fields' );
