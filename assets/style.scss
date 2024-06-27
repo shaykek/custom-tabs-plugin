@@ -1,0 +1,367 @@
+$gray: #cfd6dd;
+$lightGray: #f3f5f7;
+$primary: #4c3eff;
+$darkBlue: #080e3f;
+$gap: 40px;
+$gapSm: 20px;
+$rounded: 15px;
+
+$breakpoint-lg: 1280px;
+$breakpoint-md: 1024px;
+$breakpoint-sm: 724px;
+$breakpoint-xs: 420px;
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 11;
+    transform: translateY(0);
+  }
+}
+
+.custom-tabs {
+  font-family: "proxima-nova";
+  font-size: 25px;
+  line-height: 37px;
+  color: #000;
+  padding: 100px 0;
+  overflow: hidden;
+  @media (max-width: $breakpoint-md) {
+    font-size: $gapSm;
+    line-height: 30px;
+    padding: 40px 0;
+  }
+
+  &__container {
+    max-width: 1340px;
+    margin: 0 auto;
+    padding: 0 $gapSm;
+  }
+  &__header {
+    margin-bottom: $gap;
+    overflow: scroll;
+    white-space: nowrap;
+    padding: 0 0 10px;
+    text-align: center;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    @media (max-width: $breakpoint-md) {
+      text-align: start;
+      margin-inline-end: -$gapSm;
+      margin-bottom: $gapSm;
+    }
+
+    button {
+      font-size: 32px;
+      line-height: 44px;
+      color: $gray;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 0;
+      margin: 0;
+      background: none;
+      outline: none;
+      border: 0;
+      cursor: pointer;
+      margin-inline-end: $gap;
+
+      &:last-child {
+        margin-inline-end: 0;
+      }
+
+      @media (max-width: $breakpoint-md) {
+        font-size: 20px;
+        line-height: 30px;
+        margin-inline-end: 24px;
+      }
+
+      &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 3px;
+        width: 0;
+        transition: all 0.3s ease;
+        background-color: $primary;
+      }
+    }
+
+    button:hover,
+    button[aria-selected="true"] {
+      color: $primary;
+
+      &:before {
+        width: 100%;
+      }
+    }
+  }
+
+  &__tab {
+    display: none;
+    animation: fadein 0.5s;
+    &.active {
+      display: block;
+    }
+
+    &--inner {
+      display: flex;
+      gap: $gap;
+
+      @media (max-width: $breakpoint-md) {
+        flex-direction: column;
+        gap: $gapSm;
+      }
+    }
+  }
+
+  &__tab-content {
+    padding: 40px 29% 40px 50px;
+    border-radius: $rounded;
+    position: relative;
+    overflow: hidden;
+    background-color: $lightGray;
+    background-position: bottom right;
+    background-size: cover;
+    background-repeat: no-repeat;
+    flex: 1;
+
+    @media (max-width: $breakpoint-lg) {
+      padding: 22px 22px 240px;
+      background-size: contain;
+    }
+
+    &--bg {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      height: 100%;
+      width: 100%;
+      height: 100%;
+      background-position: 56%;
+      background-size: cover;
+      background-repeat: no-repeat;
+
+      &.mobile {
+        display: none;
+      }
+
+      @media (max-width: $breakpoint-md) {
+        display: none;
+
+        &.mobile {
+          display: block;
+          background-position: 51%;
+        }
+      }
+
+      @media (max-width: $breakpoint-sm) {
+        &.mobile {
+          background-position: 61%;
+        }
+      }
+
+      @media (max-width: $breakpoint-xs) {
+        &.mobile {
+          background-position: 63%;
+        }
+      }
+    }
+
+    &--img {
+      max-width: 34px;
+
+      @media (max-width: $breakpoint-lg) {
+        max-width: 30px;
+      }
+    }
+
+    &--text {
+      margin-bottom: $gap;
+      margin-top: $gapSm;
+
+      @media (max-width: $breakpoint-lg) {
+        margin-bottom: 30px;
+      }
+    }
+
+    &__member {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      margin-bottom: $gap;
+      line-height: 28px;
+      font-size: 18px;
+
+      &--name {
+        font-size: 18px;
+        margin: 0 0 5px 0;
+
+        @media (max-width: $breakpoint-md) {
+          font-size: 16px;
+          margin-bottom: 2px;
+        }
+      }
+
+      &--position {
+        margin: 0;
+      }
+
+      img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+
+      @media (max-width: $breakpoint-md) {
+        margin-bottom: 30px;
+        line-height: 25px;
+        font-size: 16px;
+        gap: 30px;
+
+        img {
+          width: 72px;
+          height: 72px;
+        }
+      }
+    }
+
+    &--logo {
+      max-width: 119px;
+      object-fit: contain;
+
+      @media (max-width: $breakpoint-md) {
+        max-width: 88px;
+      }
+    }
+  }
+
+  &__tab-sidebar {
+    max-width: 410px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: $gap;
+
+    @media (max-width: $breakpoint-lg) {
+      max-width: 340px;
+    }
+
+    @media (max-width: $breakpoint-md) {
+      gap: $gapSm;
+      max-width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__tab-counter {
+    background-color: $lightGray;
+    border-radius: $rounded;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1 1 0;
+
+    &--num {
+      font-size: 70px;
+      margin: 0 0 $gapSm 0;
+      line-height: 1;
+    }
+
+    &--text {
+      margin: 0;
+    }
+
+    @media (max-width: $breakpoint-md) {
+      padding: 20px;
+      &--num {
+        font-size: 32px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  &__tab-link {
+    background-color: $darkBlue;
+    color: white;
+    border-radius: $rounded;
+    font-size: 32px;
+    line-height: 44px;
+    font-weight: bold;
+    padding: 40px 30% 40px 40px;
+    display: block;
+    position: relative;
+    text-decoration: none;
+
+    img {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+      transition: all 0.3s ease;
+    }
+
+    &:hover {
+      img {
+        transform: rotate(45deg);
+      }
+    }
+
+    @media (max-width: $breakpoint-md) {
+      padding: 63px 40px 63px 22px;
+      font-size: 20px;
+      line-height: 30px;
+      flex: 1 1 0;
+
+      img {
+        top: 16px;
+        right: 15px;
+        width: 21px;
+      }
+    }
+  }
+
+  &__logos {
+    margin-top: $gap;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: $gapSm;
+
+    &--title {
+      font-weight: bold;
+      font-size: 14px;
+      color: #9ea6ae;
+      letter-spacing: 0.7px;
+    }
+    img {
+      width: auto;
+    }
+
+    @media (max-width: $breakpoint-md) {
+      gap: 0;
+      column-gap: 20px;
+      justify-content: center;
+      &--title {
+        width: 100%;
+        text-align: center;
+        margin-bottom: $gapSm;
+      }
+
+      img {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
